@@ -1,11 +1,11 @@
 native:
-	scala-cli --power package --native --native-mode release --force . --main-class files -o target/sha1-native
+	scala-cli --power package --native --native-mode release --force . --main-class sha1 -o target/sha1-native
 
 jvm:
-	scala-cli --power package --force . --main-class files -o target/sha1-jvm
+	scala-cli --power package --force . --main-class sha1 -o target/sha1-jvm
 
 graalvm:
-	scala-cli --power package --native-image --force . --main-class files -o target/sha1-graalvm
+	scala-cli --power package --native-image --force . --main-class sha1 -o target/sha1-graalvm
 
 perf-native:
 	/usr/bin/time -pl target/sha1-native $(file_name)

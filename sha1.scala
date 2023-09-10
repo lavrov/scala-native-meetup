@@ -14,7 +14,7 @@ import fs2.io.file.Path
 import java.security.MessageDigest
 import scodec.bits.ByteVector
 
-object files extends IOApp {
+object sha1 extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] = async[IO]:
     val md = MessageDigest.getInstance("SHA-1")
