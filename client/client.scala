@@ -41,7 +41,8 @@ object client extends IOApp {
           uri = uri"http://localhost:8080/sha1"
         )
           .withEntity(bytes.toBase64)
-        client.expect[String](request).await
+        val response = client.expect[String](request).await
+        IO.println(response).await
         ExitCode.Success
       }
     }
