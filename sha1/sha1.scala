@@ -43,6 +43,3 @@ object sha1 extends IOApp {
       .evalMap(md => IO(ByteVector(md.digest())))
 
 }
-
-@main def stats: Unit =
-  println("Hello, world!")
