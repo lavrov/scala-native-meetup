@@ -6,6 +6,6 @@ Dependencies for MacOS:
 
     brew install Virtuslab/scala-cli/scala-cli
     brew install llvm
-    brew install openssl
+    brew install openssl s2n
 
 See Makefile for commands.
