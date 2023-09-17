@@ -46,6 +46,9 @@ run-client-native:
 run-client-jvm:
 	/usr/bin/time -pl target/client-jvm $(max_heap_size) "Hello World"
 
+k8s-client-native:
+	scala-cli --power package --native --native-mode release-fast --force k8s --main-class client -o target/k8s-client-native
+
 
 file_name = /Users/vitaly/Downloads/file.mkv
 max_heap_size = -J-Xmx100m

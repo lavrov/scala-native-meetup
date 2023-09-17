@@ -5,7 +5,8 @@ Code for [Amsterdam.scala](https://www.meetup.com/amsterdam-scala/events/2959134
 Dependencies for MacOS:
 
     brew install Virtuslab/scala-cli/scala-cli
-    brew install llvm
-    brew install openssl s2n
+    brew install llvm                           # scala-native
+    brew install openssl s2n                    # http4s
+    brew install libyaml                        # k8s
 
 See Makefile for commands.
