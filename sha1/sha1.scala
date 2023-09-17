@@ -1,4 +1,5 @@
 //> using jvm 17
+//> using platform native
 //> using native-version 0.4.15
 //> using dep org.typelevel::cats-effect::3.5.1
 //> using dep org.typelevel::cats-effect-cps::0.4.0
@@ -33,14 +34,14 @@ object sha1 extends IOApp {
 
   def sha1Pipe: Pipe[IO, Byte, ByteVector] = bytes =>
     Stream
-      .eval(IO(MessageDigest.getInstance("SHA-1")))
-      .evalTap(md =>
+      .eval(Sha1DigestAlgo())
+      .evalTap(algo =>
         bytes
           .chunks
-          .evalMap(bytes => IO(md.update(bytes.toArray)))
+          .evalMap(bytes => algo.update(bytes.toByteVector))
           .compile
           .drain
       )
-      .evalMap(md => IO(ByteVector(md.digest())))
+      .evalMap(_.digest)
 
 }

@@ -1,2 +1,41 @@
 //> using target.platform native
-//> using dep com.github.lolgab::scala-native-crypto::0.0.4
+
+import cats.effect.IO
+import scodec.bits.ByteVector
+
+import scala.scalanative.unsafe.*
+import scala.scalanative.unsigned.*
+
+@link("crypto")
+@extern
+private object crypto {
+  def SHA1_Init(c: Ptr[Byte]): CInt = extern
+  def SHA1_Update(c: Ptr[Byte], data: Ptr[Byte], len: CSize): CInt = extern
+  def SHA1_Final(md: CString, c: Ptr[Byte]): CInt = extern
+}
+
+class Sha1DigestAlgo private(ctx: Ptr[Byte]) {
+  def update(bytes: ByteVector): IO[Unit] = IO {
+    crypto.SHA1_Update(
+      ctx,
+      bytes.toArray.atUnsafe(0),
+      bytes.size.toULong
+    )
+  }
+
+  def digest: IO[ByteVector] = IO {
+    val md = new Array[Byte](20)
+    crypto.SHA1_Final(md.atUnsafe(0), ctx)
+    ByteVector.view(md)
+  }
+}
+
+object Sha1DigestAlgo {
+  def apply(): IO[Sha1DigestAlgo] = IO {
+    val ctx = new Array[Byte](450).atUnsafe(0)
+    crypto.SHA1_Init(ctx)
+    new Sha1DigestAlgo(ctx)
+  }
+}
+
+
