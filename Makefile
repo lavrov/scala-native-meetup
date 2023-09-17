@@ -7,13 +7,13 @@ sha1-jvm:
 sha1-graalvm:
 	scala-cli --power package --native-image --force . --main-class sha1 -o target/sha1-graalvm
 
-perf-native:
+run-sha1-native:
 	/usr/bin/time -pl target/sha1-native $(file_name)
 
-run-jvm:
+run-sha1-jvm:
 	/usr/bin/time -pl target/sha1-jvm $(max_heap_size) $(file_name)
 
-run-graalvm:
+run-sha1-graalvm:
 	/usr/bin/time -pl target/sha1-graalvm $(max_heap_size) $(file_name)
 
 run-shasum:
