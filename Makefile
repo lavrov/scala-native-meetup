@@ -1,17 +1,17 @@
 sha1-native:
-	scala-cli --power package --native --native-mode release --force . --main-class sha1 -o target/sha1-native
+	scala-cli --power package --native --native-mode release-fast --force sha1 -o target/sha1-native
 
 sha1-jvm:
-	scala-cli --power package --assembly --force . --main-class sha1 -o target/sha1-jvm
+	scala-cli --power package --assembly --force sha1 -o target/sha1-jvm
 
 sha1-graalvm:
-	scala-cli --power package --native-image --force . --main-class sha1 -o target/sha1-graalvm
+	scala-cli --power package --native-image --force sha1  -o target/sha1-graalvm
 
 run-sha1-native:
 	/usr/bin/time -pl target/sha1-native $(file_name)
 
 run-sha1-jvm:
-	/usr/bin/time -pl target/sha1-jvm $(max_heap_size) $(file_name)
+	/usr/bin/time -pl target/sha1-jvm $(j_max_heap_size) $(file_name)
 
 run-sha1-graalvm:
 	/usr/bin/time -pl target/sha1-graalvm $(max_heap_size) $(file_name)
@@ -32,7 +32,7 @@ run-http-server-native:
 	/usr/bin/time -pl target/http-server-native
 
 run-http-server-jvm:
-	/usr/bin/time -pl target/http-server-jvm $(max_heap_size)
+	/usr/bin/time -pl target/http-server-jvm $(j_max_heap_size)
 
 http-client-native:
 	scala-cli --power package --native --native-mode release-fast --force http --main-class client -o target/http-client-native
@@ -44,7 +44,7 @@ http-run-client-native:
 	/usr/bin/time -pl target/http-client-native "Hello World"
 
 http-run-client-jvm:
-	/usr/bin/time -pl target/http-client-jvm $(max_heap_size) "Hello World"
+	/usr/bin/time -pl target/http-client-jvm $(j_max_heap_size) "Hello World"
 
 k8s-client-native:
 	scala-cli --power package --native --native-mode release-fast --force k8s --main-class client -o target/k8s-client-native
@@ -54,5 +54,6 @@ run-grpc-server-native:
 
 
 file_name = /Users/vitaly/Downloads/file.mkv
-max_heap_size = -J-Xmx100m
+max_heap_size = -Xmx100m
+j_max_heap_size = -J$(max_heap_size)
 

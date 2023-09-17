@@ -1,7 +1,8 @@
 //> using jvm 17
+//> using native-version 0.4.15
 //> using dep org.typelevel::cats-effect::3.5.1
 //> using dep org.typelevel::cats-effect-cps::0.4.0
-//> using dep co.fs2::fs2-io::3.9.1
+//> using dep co.fs2::fs2-io::3.9.2
 //> using dep org.scodec::scodec-bits::1.1.37
 
 import cats.effect.*
