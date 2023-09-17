@@ -49,6 +49,9 @@ run-client-jvm:
 k8s-client-native:
 	scala-cli --power package --native --native-mode release-fast --force k8s --main-class client -o target/k8s-client-native
 
+run-grpc-server-native:
+	/usr/bin/time -pl grpc/target/scala-3.3.0/grpc-out
+
 
 file_name = /Users/vitaly/Downloads/file.mkv
 max_heap_size = -J-Xmx100m
