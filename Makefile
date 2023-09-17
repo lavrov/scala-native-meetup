@@ -19,32 +19,32 @@ run-graalvm:
 run-shasum:
 	/usr/bin/time -pl shasum -a 1 $(file_name)
 
-server-native:
-	scala-cli --power package --native --native-mode release-fast --force http --main-class server -o target/server-native
+http-server-native:
+	scala-cli --power package --native --native-mode release-fast --force http --main-class server -o target/http-server-native
 
-server-graalvm:
-	scala-cli --power package --native-image --force http --main-class server -o target/server-graalvm
+http-server-graalvm:
+	scala-cli --power package --native-image --force http --main-class server -o target/http-server-graalvm
 
-server-jvm:
-	scala-cli --power package --assembly --force http --main-class server -o target/server-jvm
+http-server-jvm:
+	scala-cli --power package --assembly --force http --main-class server -o target/http-server-jvm
 
-run-server-native:
-	/usr/bin/time -pl target/server-native
+run-http-server-native:
+	/usr/bin/time -pl target/http-server-native
 
-run-server-jvm:
-	/usr/bin/time -pl target/server-jvm $(max_heap_size)
+run-http-server-jvm:
+	/usr/bin/time -pl target/http-server-jvm $(max_heap_size)
 
-client-native:
-	scala-cli --power package --native --native-mode release-fast --force http --main-class client -o target/client-native
+http-client-native:
+	scala-cli --power package --native --native-mode release-fast --force http --main-class client -o target/http-client-native
 
-client-jvm:
-	scala-cli --power package --assembly --force http --main-class client -o target/client-jvm
+http-client-jvm:
+	scala-cli --power package --assembly --force http --main-class client -o target/http-client-jvm
 
-run-client-native:
-	/usr/bin/time -pl target/client-native "Hello World"
+http-run-client-native:
+	/usr/bin/time -pl target/http-client-native "Hello World"
 
-run-client-jvm:
-	/usr/bin/time -pl target/client-jvm $(max_heap_size) "Hello World"
+http-run-client-jvm:
+	/usr/bin/time -pl target/http-client-jvm $(max_heap_size) "Hello World"
 
 k8s-client-native:
 	scala-cli --power package --native --native-mode release-fast --force k8s --main-class client -o target/k8s-client-native
