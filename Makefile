@@ -1,3 +1,21 @@
+hello-native:
+	scala-cli --power package --native --native-mode release-fast --force hello.scala -o target/hello-native
+
+hello-jvm:
+	scala-cli --power package --assembly --force hello.scala -o target/hello-jvm
+
+hello-graalvm:
+	scala-cli --power package --jvm 17 --native-image --force hello.scala -o target/hello-graalvm
+
+run-hello-native:
+	/usr/bin/time -pl target/hello-native
+
+run-hello-jvm:
+	/usr/bin/time -pl target/hello-jvm $(j_max_heap_size)
+
+run-hello-graalvm:
+	/usr/bin/time -pl target/hello-graalvm
+
 sha1-native:
 	scala-cli --power package --native --native-mode release-fast --force sha1 -o target/sha1-native
 
