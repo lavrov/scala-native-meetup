@@ -41,7 +41,7 @@ http-server-native:
 	scala-cli --power package --native --native-mode release-fast --force http --main-class server -o target/http-server-native
 
 http-server-graalvm:
-	scala-cli --power package --native-image --force http --main-class server -o target/http-server-graalvm
+	scala-cli --power package --native-image --graalvm-args "-J-Xmx10G" --force http --main-class server -o target/http-server-graalvm
 
 http-server-jvm:
 	scala-cli --power package --assembly --force http --main-class server -o target/http-server-jvm
@@ -58,10 +58,10 @@ http-client-native:
 http-client-jvm:
 	scala-cli --power package --assembly --force http --main-class client -o target/http-client-jvm
 
-http-run-client-native:
+run-http-client-native:
 	/usr/bin/time -pl target/http-client-native "Hello World"
 
-http-run-client-jvm:
+run-http-client-jvm:
 	/usr/bin/time -pl target/http-client-jvm $(j_max_heap_size) "Hello World"
 
 k8s-client-native:
