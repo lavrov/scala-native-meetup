@@ -59,10 +59,10 @@ http-client-jvm:
 	scala-cli --power package --assembly --force http --main-class client -o target/http-client-jvm
 
 run-http-client-native:
-	/usr/bin/time -pl target/http-client-native "Hello World"
+	/usr/bin/time -pl target/http-client-native $(file_name_100m)
 
 run-http-client-jvm:
-	/usr/bin/time -pl target/http-client-jvm $(j_max_heap_size) "Hello World"
+	/usr/bin/time -pl target/http-client-jvm $(j_max_heap_size) $(file_name_100m)
 
 k8s-client-native:
 	scala-cli --power package --native --native-mode release-fast --force k8s --main-class client -o target/k8s-client-native
@@ -71,7 +71,8 @@ run-grpc-server-native:
 	/usr/bin/time -pl grpc/target/scala-3.3.0/grpc-out
 
 
-file_name = /Users/vitaly/Downloads/file.mkv
-max_heap_size = -Xmx100m
+file_name = /Users/vitaly/Downloads/1g.img
+file_name_100m = /Users/vitaly/Downloads/100m.img
+max_heap_size = -Xmx10m
 j_max_heap_size = -J$(max_heap_size)
 
