@@ -11,5 +11,3 @@
 //> using dep org.http4s::http4s-dsl::0.23.23-67-0c38b06-SNAPSHOT
 //> using dep org.scodec::scodec-bits::1.1.37
 //> using dep org.typelevel::log4cats-noop::2.6.0
-
-//> using dep com.github.lolgab::scala-native-crypto::0.0.4
