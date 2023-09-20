@@ -1,5 +1,4 @@
 //> using jvm 17
-//> using platform native
 //> using native-version 0.4.15
 //> using dep org.typelevel::cats-effect::3.5.1
 //> using dep org.typelevel::cats-effect-cps::0.4.0
@@ -13,13 +12,11 @@ import fs2.Pipe
 import fs2.io.file.Files
 import fs2.io.file.Flags
 import fs2.io.file.Path
-import java.security.MessageDigest
 import scodec.bits.ByteVector
 
 object sha1 extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] = async[IO]:
-    val md = MessageDigest.getInstance("SHA-1")
     val filePath = args match
       case List(fileName) => Path(fileName)
       case _ => throw new IllegalArgumentException("Usage: sha1 <file>")
@@ -34,7 +31,7 @@ object sha1 extends IOApp {
 
   def sha1Pipe: Pipe[IO, Byte, ByteVector] = bytes =>
     Stream
-      .eval(Sha1DigestAlgo())
+      .eval(Digest())
       .evalTap(algo =>
         bytes
           .chunks

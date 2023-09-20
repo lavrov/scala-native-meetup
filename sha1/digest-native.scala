@@ -14,7 +14,7 @@ private object crypto {
   def SHA1_Final(md: CString, c: Ptr[Byte]): CInt = extern
 }
 
-class Sha1DigestAlgo private(ctx: Ptr[Byte]) {
+class Digest private(ctx: Ptr[Byte]) {
   def update(bytes: ByteVector): IO[Unit] = IO {
     crypto.SHA1_Update(
       ctx,
@@ -30,11 +30,11 @@ class Sha1DigestAlgo private(ctx: Ptr[Byte]) {
   }
 }
 
-object Sha1DigestAlgo {
-  def apply(): IO[Sha1DigestAlgo] = IO {
+object Digest {
+  def apply(): IO[Digest] = IO {
     val ctx = new Array[Byte](450).atUnsafe(0)
     crypto.SHA1_Init(ctx)
-    new Sha1DigestAlgo(ctx)
+    new Digest(ctx)
   }
 }
 
